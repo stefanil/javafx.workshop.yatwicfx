@@ -1,0 +1,10 @@
+## Aufgabe
+
+* MVVMFX verwenden (Feedback geben)
+* verwendbare Features:
+ * Caching
+ * NotificationCenter
+ * SelectableItemList.select() + Binding auf Modell-Ebene
+
+## Feedback zu MVVMFX
+
