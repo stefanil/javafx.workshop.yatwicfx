@@ -22,6 +22,9 @@ import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 import de.saxsys.jfx.mvvm.base.viewmodel.util.itemlist.ModelToStringMapper;
 import de.saxsys.jfx.mvvm.base.viewmodel.util.itemlist.SelectableItemList;
 
+/**
+ * @author stefan.illgen
+ */
 public class HashTagListViewModel implements ViewModel {
 
 	/*
