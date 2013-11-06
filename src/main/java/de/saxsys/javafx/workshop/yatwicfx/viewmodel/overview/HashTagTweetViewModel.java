@@ -25,8 +25,4 @@ public class HashTagTweetViewModel implements ViewModel {
 		return tweets;
 	}
 
-	public void bindSelection(HashTagListViewModel hashTagListViewModel) {		
-		tweets.bind(hashTagListViewModel.tweetsProperty());			
-	}
-
 }

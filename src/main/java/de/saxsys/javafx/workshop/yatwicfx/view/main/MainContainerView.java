@@ -3,13 +3,17 @@ package de.saxsys.javafx.workshop.yatwicfx.view.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.cathive.fx.guice.FXMLController;
+
 import javafx.fxml.FXML;
 import de.saxsys.javafx.workshop.yatwicfx.view.overview.HashTagListView;
 import de.saxsys.javafx.workshop.yatwicfx.view.overview.HashTagTweetView;
 import de.saxsys.javafx.workshop.yatwicfx.view.overview.HashTagWeeklyStatisticsView;
-import de.saxsys.jfx.mvvm.base.view.ViewWithoutViewModel;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.main.MainContainerViewModel;
+import de.saxsys.jfx.mvvm.base.view.View;
 
-public class MainContainerView extends ViewWithoutViewModel {
+@FXMLController
+public class MainContainerView extends View<MainContainerViewModel> {
 
 	@FXML
 	private HashTagListView hashTagListViewController;
@@ -22,16 +26,12 @@ public class MainContainerView extends ViewWithoutViewModel {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		// bind tweets property of hash tag list view model 2 tweet view model
-		hashTagTweetViewController.getViewModel()
-				.bindSelection(hashTagListViewController.getViewModel());
-
-		// bind tweets property of hash tag list view model 2 statistic charts
-		// model
-		hashTagWeeklyStatisticsViewController.getViewModel()
-				.bindSelection(hashTagTweetViewController.getViewModel());
-
+		
+		getViewModel().setHashTagListViewModel(hashTagListViewController.getViewModel());
+		getViewModel().setHashTagTweetViewModel(hashTagTweetViewController.getViewModel());
+		getViewModel().setHashTagWeeklyStatisticsViewModel(hashTagWeeklyStatisticsViewController.getViewModel());
+		
+		getViewModel().initialize();
 	}
 
 }

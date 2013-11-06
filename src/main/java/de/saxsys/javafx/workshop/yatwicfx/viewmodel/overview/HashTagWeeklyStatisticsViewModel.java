@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
@@ -43,6 +42,7 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 
 		// create and write initial series data
 		Series<String, Number> series = new Series<>();
+		series.setName("Amount of tweets per week day");
 
 		ObservableList<Data<String, Number>> dates = series.getData();
 		dates.add(new XYChart.Data<String, Number>(MONDAY, 0.0));
@@ -58,28 +58,6 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 
 	public ObjectProperty<ObservableList<Series<String, Number>>> hashTagStatisticsProperty() {
 		return hashTagStatistics;
-	}
-	
-	public void bindSelection(final HashTagTweetViewModel hashTagTweetViewModel) {
-
-		hashTagTweetViewModel.tweetsProperty().addListener(new ListChangeListener<Tweet>() {
-			@Override
-			public void onChanged(
-					javafx.collections.ListChangeListener.Change<? extends Tweet> tweetChange) {
-
-				if (tweetChange.next()) {
-					
-					// removed
-					if (tweetChange.wasRemoved())
-						removeAllTweets();
-					
-					// tweet was added
-					if (tweetChange.wasAdded())
-						loadAddedTweet(
-								tweetChange.getAddedSubList());
-				}
-			}
-		});
 	}
 
 	/**
