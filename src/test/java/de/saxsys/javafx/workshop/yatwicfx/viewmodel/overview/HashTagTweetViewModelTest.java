@@ -18,7 +18,7 @@ public class HashTagTweetViewModelTest {
 		// do not use google guice
 		repo = new Repository();
 		repo.load(false);
-		httvm = new HashTagTweetViewModel(repo);
+		httvm = new HashTagTweetViewModel();
 	}
 	
 	/**
@@ -27,9 +27,9 @@ public class HashTagTweetViewModelTest {
 	 */
 	@Test
 	public void showAllHashTagTweets() {
-		Assert.assertEquals(httvm.tweetProperty().get(0), "Montse García");
-		Assert.assertEquals(httvm.tweetProperty().get(1), "Suricattus");
-		Assert.assertEquals(httvm.tweetProperty().get(2), "Java");
+		Assert.assertEquals(httvm.tweetsProperty().get(0), "Montse García");
+		Assert.assertEquals(httvm.tweetsProperty().get(1), "Suricattus");
+		Assert.assertEquals(httvm.tweetsProperty().get(2), "Java");
 	}
 	
 	@After

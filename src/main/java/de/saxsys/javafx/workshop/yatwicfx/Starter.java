@@ -2,21 +2,15 @@ package de.saxsys.javafx.workshop.yatwicfx;
 
 import java.util.List;
 
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import com.google.inject.Inject;
 import com.google.inject.Module;
 
 import de.saxsys.javafx.workshop.yatwicfx.model.Repository;
 import de.saxsys.javafx.workshop.yatwicfx.view.main.MainContainerView;
-import de.saxsys.javafx.workshop.yatwicfx.view.overview.HashTagTweetView;
-import de.saxsys.javafx.workshop.yatwicfx.view.overview.HashTagWeeklyStatisticsView;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagTweetViewModel;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagWeeklyStatisticsViewModel;
 import de.saxsys.jfx.mvvm.di.guice.MvvmGuiceApplication;
 import de.saxsys.jfx.mvvm.viewloader.ViewLoader;
 import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
@@ -44,6 +38,7 @@ public class Starter extends MvvmGuiceApplication {
 		
 		repository.load(true);
 		
+		@SuppressWarnings("rawtypes")
 		final ViewTuple tuple = viewLoader
 				.loadViewTuple(MainContainerView.class);
 		
@@ -52,17 +47,6 @@ public class Starter extends MvvmGuiceApplication {
 
 		final Scene scene = new Scene(view);
 		stage.setScene(scene);
-		
-		// FIXME: dirty singleton change listener remove
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {			
-			@Override
-			public void handle(WindowEvent arg0) {
-				HashTagTweetView.removeChangeListener();
-				HashTagTweetViewModel.removeChangeListener();
-				HashTagWeeklyStatisticsView.removeChangeListener();
-				HashTagWeeklyStatisticsViewModel.removeChangeListener();
-			}
-		});
 		
 		stage.show();
 	}

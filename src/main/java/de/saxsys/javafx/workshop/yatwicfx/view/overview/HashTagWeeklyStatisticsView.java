@@ -7,19 +7,18 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.ListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.StackedBarChart;
+import de.saxsys.javafx.workshop.yatwicfx.model.Tweet;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagWeeklyStatisticsViewModel;
 import de.saxsys.jfx.mvvm.base.view.View;
 
 /**
  * @author stefan.illgen
- * 
  */
 public class HashTagWeeklyStatisticsView extends
 		View<HashTagWeeklyStatisticsViewModel> {
@@ -41,41 +40,38 @@ public class HashTagWeeklyStatisticsView extends
 						HashTagWeeklyStatisticsViewModel.THURSDAY,
 						HashTagWeeklyStatisticsViewModel.FRIDAY,
 						HashTagWeeklyStatisticsViewModel.SATURDAY,
-						HashTagWeeklyStatisticsViewModel.SUNDAY)));		
-	}
-
-	public void bindSelection(
-			ReadOnlyObjectProperty<String> selectedItemProperty) {
+						HashTagWeeklyStatisticsViewModel.SUNDAY)));
 
 		// bind ui chart to it model
 		hashTagWeeklyStatisticBarChart.dataProperty().bind(
 				getViewModel().hashTagStatisticsProperty());
+	}
 
-		// on change the selection in hash tag list, reload tweets
-		htChangeListener = new ChangeListener<String>() {
+	// dirty change listsner stuff
+	
+	private static ListChangeListener<Tweet> weeklyStatisticsChangeListener;
+	
+	public void bindSelection(final ListProperty<Tweet> tweetsProperty) {
 
+		weeklyStatisticsChangeListener = new ListChangeListener<Tweet>() {
 			@Override
-			public void changed(ObservableValue<? extends String> arg0,
-					String oldHashTag, String newHashTag) {
+			public void onChanged(
+					javafx.collections.ListChangeListener.Change<? extends Tweet> tweetChange) {
 
-				// reload tweets
-				if (oldHashTag == null || !oldHashTag.equals(newHashTag)) {
-					getViewModel().reloadStatistics(newHashTag);
+				if (tweetChange.next()) {
+					
+					// removed
+					if (tweetChange.wasRemoved())
+						getViewModel().removeAllTweets();
+					
+					// tweet was added
+					if (tweetChange.wasAdded())
+						getViewModel().loadAddedTweet(
+								tweetChange.getAddedSubList());
 				}
 			}
 		};
-		listenedProperty = selectedItemProperty;
-		selectedItemProperty.addListener(htChangeListener);
-
+		
+		tweetsProperty.addListener(weeklyStatisticsChangeListener);
 	}
-
-	// ######################
-
-	private static ReadOnlyObjectProperty<String> listenedProperty;
-	private static ChangeListener<String> htChangeListener;
-
-	public static void removeChangeListener() {
-		listenedProperty.removeListener(htChangeListener);
-	}
-
 }

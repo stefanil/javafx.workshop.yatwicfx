@@ -6,21 +6,16 @@ package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 
-import org.joda.time.DateTimeConstants;
-
 import com.google.inject.Inject;
 
-import de.saxsys.javafx.workshop.yatwicfx.model.Repository;
 import de.saxsys.javafx.workshop.yatwicfx.model.Tweet;
 import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 
@@ -29,8 +24,6 @@ import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
  * 
  */
 public class HashTagWeeklyStatisticsViewModel implements ViewModel {
-
-	private Repository repo;
 
 	public static final String SUNDAY = "Sonntag";
 	public static final String SATURDAY = "Samstag";
@@ -45,144 +38,46 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 					.observableArrayList(new ArrayList<Series<String, Number>>()));
 
 	@Inject
-	public HashTagWeeklyStatisticsViewModel(Repository repo) {
+	public HashTagWeeklyStatisticsViewModel() {
 
-		this.repo = repo;
+		// create and write initial series data
+		Series<String, Number> series = new Series<>();
 
-		// write initial series data
-		hashTagStatistics.get().add(
-				createSeriesData("Kein HashTag ausgewählt",
-						getInitialHashStatisticsArray()));
+		ObservableList<Data<String, Number>> dates = series.getData();
+		dates.add(new XYChart.Data<String, Number>(MONDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(TUESDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(WEDNESDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(THURSDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(FRIDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(SATURDAY, 0.0));
+		dates.add(new XYChart.Data<String, Number>(SUNDAY, 0.0));
 
-		// FIXME: dirty change listening
-		// Binding US 04 (Update View)
-		listChangeListener = new ListChangeListener<Tweet>() {
-			@Override
-			public void onChanged(
-					javafx.collections.ListChangeListener.Change<? extends Tweet> change) {
-
-				while (change.next()) {
-					if (change.wasAdded())
-						reloadStatistics();
-				}
-			}
-		};
-
-		tweetsProperty = repo.tweetsProperty();
-		tweetsProperty.addListener(listChangeListener);
+		hashTagStatistics.get().add(series);
 	}
 
 	public ObjectProperty<ObservableList<Series<String, Number>>> hashTagStatisticsProperty() {
 		return hashTagStatistics;
 	}
 
-	public void reloadStatistics(String hashTag) {
+	public void loadAddedTweet(List<? extends Tweet> addedSubList) {
 
-		// cache it for US 04
-		cachedHashTag = hashTag;
-		// clear statistics
-		hashTagStatistics.get().clear();
+		Series<String, Number> series = hashTagStatistics.getValue().get(0);
+		ObservableList<Data<String, Number>> dates = series.getData();
 
-		int[] hashTagStatisticsArray = getInitialHashStatisticsArray();
-
-		// this sets all the hashTagStatistics
-		List<Tweet> allTweets = repo.getTweets();
-		for (int i = 0; i < allTweets.size(); i++) {
-			Tweet tweet = allTweets.get(i);
-			String tweetText = tweet.getText();
-			if (tweetText.indexOf(hashTag) != -1) {
-
-				switch (tweet.getCreatedAt().getDayOfWeek()) {
-
-				case DateTimeConstants.MONDAY:
-					hashTagStatisticsArray[0] += 1;
-					break;
-				case DateTimeConstants.TUESDAY:
-					hashTagStatisticsArray[1] += 1;
-					break;
-				case DateTimeConstants.WEDNESDAY:
-					hashTagStatisticsArray[2] += 1;
-					break;
-				case DateTimeConstants.THURSDAY:
-					hashTagStatisticsArray[3] += 1;
-					break;
-				case DateTimeConstants.FRIDAY:
-					hashTagStatisticsArray[4] += 1;
-					break;
-				case DateTimeConstants.SATURDAY:
-					hashTagStatisticsArray[5] += 1;
-					break;
-				case DateTimeConstants.SUNDAY:
-					hashTagStatisticsArray[6] += 1;
-					break;
-				}
-			}
+		for (Tweet tweet : addedSubList) {
+			Data<String, Number> data = dates.get(tweet.getCreatedAt()
+					.getDayOfWeek() - 1);
+			data.setYValue(Integer.valueOf(data.getYValue().intValue() + 1));
 		}
-
-		hashTagStatistics.get().add(
-				createSeriesData(hashTag, hashTagStatisticsArray));
 	}
 
-	/**
-	 * Creates an initial Array, which is used for writing {@link Series} data.
-	 * 
-	 * @return
-	 */
-	private int[] getInitialHashStatisticsArray() {
+	public void removeAllTweets() {
 
-		int[] result = new int[7];
-		for (int i = 0; i < 7; i++)
-			result[i] = 0;
-
-		return result;
-	}
-
-	/**
-	 * Sets the name of the {@link Series} instance and writes its data.
-	 */
-	private Series<String, Number> createSeriesData(String name,
-			int[] hashTagStatisticsMap) {
-
-		// create new instance
-		Series<String, Number> series = new Series<>();
-
-		// set series name
-		series.setName(name);
-
-		// write data
-		ObservableList<Data<String, Number>> data = series.getData();
-		data.add(new XYChart.Data<String, Number>(MONDAY,
-				hashTagStatisticsMap[0]));
-		data.add(new XYChart.Data<String, Number>(TUESDAY,
-				hashTagStatisticsMap[1]));
-		data.add(new XYChart.Data<String, Number>(WEDNESDAY,
-				hashTagStatisticsMap[2]));
-		data.add(new XYChart.Data<String, Number>(THURSDAY,
-				hashTagStatisticsMap[3]));
-		data.add(new XYChart.Data<String, Number>(FRIDAY,
-				hashTagStatisticsMap[4]));
-		data.add(new XYChart.Data<String, Number>(SATURDAY,
-				hashTagStatisticsMap[5]));
-		data.add(new XYChart.Data<String, Number>(SUNDAY,
-				hashTagStatisticsMap[6]));
-
-		return series;
-	}
-	
-	// dirty update stuff
-	
-	private static ListProperty<Tweet> tweetsProperty;
-	private static ListChangeListener<Tweet> listChangeListener;
-	
-	private String cachedHashTag = null;
-	
-	private void reloadStatistics() {
-		if(cachedHashTag != null)
-			reloadStatistics(cachedHashTag);		
-	}
-
-	public static void removeChangeListener() {
-		tweetsProperty.removeListener(listChangeListener);
+		ObservableList<Data<String, Number>> dates = hashTagStatistics
+				.getValue().get(0).getData();
+		for (int i = 0; i < 7; i++) {
+			dates.get(i).setYValue(0.0);
+		}
 	}
 
 }

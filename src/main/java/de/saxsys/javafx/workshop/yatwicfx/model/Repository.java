@@ -238,7 +238,7 @@ public class Repository {
 					System.out.println("added tweet: " + tweet);
 				}
 			}
-		}, 5, 3, TimeUnit.SECONDS);
+		}, 20, 3, TimeUnit.SECONDS);
 	}
 
 	private void insertTweet(final Tweet tweet) {

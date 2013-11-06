@@ -23,9 +23,9 @@ public class HashTagListViewModelTest {
 
 	@Test
 	public void showAllHashTags() {
-		Assert.assertEquals(htlvm.hashTagProperty().get(0), "#Java8");
-		Assert.assertEquals(htlvm.hashTagProperty().get(1), "#JMetro");
-		Assert.assertEquals(htlvm.hashTagProperty().get(2), "#JavaFX");
+		Assert.assertEquals(htlvm.hashTagsProperty().get(0), "#Java8");
+		Assert.assertEquals(htlvm.hashTagsProperty().get(1), "#JMetro");
+		Assert.assertEquals(htlvm.hashTagsProperty().get(2), "#JavaFX");
 	}
 
 	@After
