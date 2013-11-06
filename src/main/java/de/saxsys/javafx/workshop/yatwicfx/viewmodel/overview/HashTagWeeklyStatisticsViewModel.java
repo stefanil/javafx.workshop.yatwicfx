@@ -17,6 +17,7 @@ import javafx.scene.chart.XYChart.Series;
 import com.google.inject.Inject;
 
 import de.saxsys.javafx.workshop.yatwicfx.model.Tweet;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.model.TweetVM;
 import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 
 /**
@@ -69,12 +70,12 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 	 * 
 	 * @param addedSubList
 	 */
-	public void loadAddedTweet(List<? extends Tweet> addedSubList) {
+	public void loadAddedTweet(List<? extends TweetVM> addedSubList) {
 
 		Series<String, Number> series = hashTagStatistics.getValue().get(0);
 		ObservableList<Data<String, Number>> dates = series.getData();
 
-		for (Tweet tweet : addedSubList) {
+		for (TweetVM tweet : addedSubList) {
 			Data<String, Number> data = dates.get(tweet.getCreatedAt()
 					.getDayOfWeek() - 1);
 			data.setYValue(Integer.valueOf(data.getYValue().intValue() + 1));
