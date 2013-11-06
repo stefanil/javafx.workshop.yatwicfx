@@ -24,16 +24,13 @@ public class MainContainerView extends ViewWithoutViewModel {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		// bind tweets property of hash tag list view model 2 tweet view model
-		hashTagTweetViewController
-				.getViewModel()
-				.tweetsProperty()
-				.bind(hashTagListViewController.getViewModel().tweetsProperty());
+		hashTagTweetViewController.getViewModel()
+				.bindSelection(hashTagListViewController.getViewModel());
 
 		// bind tweets property of hash tag list view model 2 statistic charts
 		// model
-		hashTagWeeklyStatisticsViewController
-				.bindSelection(hashTagTweetViewController.getViewModel()
-						.tweetsProperty());
+		hashTagWeeklyStatisticsViewController.getViewModel()
+				.bindSelection(hashTagTweetViewController.getViewModel());
 
 	}
 

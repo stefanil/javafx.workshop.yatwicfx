@@ -52,8 +52,6 @@ public class HashTagListViewModel implements ViewModel {
 					Number old_val, Number new_val) {
 				if (new_val.intValue() >= 0) {
 					hashTags.select(new_val.intValue());
-					// does it has to be destroyed?
-//					tweets = new SimpleListProperty<Tweet>();
 					// rebind
 					tweets.bind(hashTags.selectedItemProperty().get()
 							.tweetsProperty());
@@ -66,6 +64,13 @@ public class HashTagListViewModel implements ViewModel {
 		return hashTags.stringListProperty();
 	}
 	
+	/**
+	 * <b>Known Encapsulation Problem:</b> The model class {@link Tweet} should
+	 * not be made publicly visible to the view layer to preserve variability of
+	 * the model layer. But its so elegant ;)
+	 * 
+	 * @return
+	 */
 	public ReadOnlyListProperty<Tweet> tweetsProperty() {
 		return tweets;
 	}

@@ -14,8 +14,19 @@ public class HashTagTweetViewModel implements ViewModel {
 	private ListProperty<Tweet> tweets = new SimpleListProperty<Tweet>(
 			FXCollections.<Tweet> observableArrayList());
 
+	/**
+	 * <b>Known Encapsulation Problem:</b> The model class {@link Tweet} should
+	 * not be made publicly visible to the view layer to preserve variability of
+	 * the model layer.
+	 * 
+	 * @return
+	 */
 	public ListProperty<Tweet> tweetsProperty() {
 		return tweets;
+	}
+
+	public void bindSelection(HashTagListViewModel hashTagListViewModel) {		
+		tweets.bind(hashTagListViewModel.tweetsProperty());			
 	}
 
 }
