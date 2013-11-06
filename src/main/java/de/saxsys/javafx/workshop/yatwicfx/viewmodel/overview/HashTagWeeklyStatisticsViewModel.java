@@ -25,6 +25,7 @@ import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
  */
 public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 
+	private static final String SERIES_TITLE = "Anzahl der Tweets pro Tag";
 	public static final String SUNDAY = "Sonntag";
 	public static final String SATURDAY = "Samstag";
 	public static final String FRIDAY = "Freitag";
@@ -42,7 +43,7 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 
 		// create and write initial series data
 		Series<String, Number> series = new Series<>();
-		series.setName("Amount of tweets per week day");
+		series.setName(SERIES_TITLE);
 
 		ObservableList<Data<String, Number>> dates = series.getData();
 		dates.add(new XYChart.Data<String, Number>(MONDAY, 0.0));

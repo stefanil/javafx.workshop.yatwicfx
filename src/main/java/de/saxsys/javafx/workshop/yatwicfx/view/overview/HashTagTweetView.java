@@ -36,10 +36,13 @@ public class HashTagTweetView extends View<HashTagTweetViewModel> {
 	@FXML
 	private TableColumn<Tweet, String> tweetTableTweetColumn;
 
+	@FXML
+	private TableColumn<Tweet, String> tweetTableCreatedAtColumn;
+
 	/**
 	 * <b>Known Encapsulation Problem:</b> The model class {@link Tweet} should
-	 * not be used inside the view layer to preserve variability of
-	 * the model layer.
+	 * not be used inside the view layer to preserve variability of the model
+	 * layer.
 	 * 
 	 * @return
 	 */
@@ -59,13 +62,18 @@ public class HashTagTweetView extends View<HashTagTweetViewModel> {
 				.setCellValueFactory(new Callback<CellDataFeatures<Tweet, String>, ObservableValue<String>>() {
 					public ObservableValue<String> call(
 							CellDataFeatures<Tweet, String> t) {
+						return new SimpleStringProperty(t.getValue().getText());
+					}
+				});
 
-						// just for testing
-						 DateTime createdAt = t.getValue().getCreatedAt();
-						 DateTimeFormatter fmt = DateTimeFormat
-						 .forPattern("dd.MM.yyyy");
-						 return new
-						 SimpleStringProperty(fmt.print(createdAt));
+		tweetTableCreatedAtColumn
+				.setCellValueFactory(new Callback<CellDataFeatures<Tweet, String>, ObservableValue<String>>() {
+					public ObservableValue<String> call(
+							CellDataFeatures<Tweet, String> t) {
+						DateTime createdAt = t.getValue().getCreatedAt();
+						DateTimeFormatter fmt = DateTimeFormat
+								.forPattern("dd.MM.yyyy");
+						return new SimpleStringProperty(fmt.print(createdAt));
 					}
 				});
 
