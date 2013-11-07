@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.saxsys.javafx.workshop.yatwicfx.viewmodel.model;
+package de.saxsys.javafx.workshop.yatwicfx.viewmodel;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

@@ -4,7 +4,7 @@
 package de.saxsys.javafx.workshop.yatwicfx.viewmodel.main;
 
 import javafx.collections.ListChangeListener;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.model.TweetVM;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.TweetVM;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagListViewModel;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagTweetViewModel;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagWeeklyStatisticsViewModel;
@@ -55,7 +55,7 @@ public class MainContainerViewModel implements ViewModel {
 		// bind tweets property of hash tag list view model 2 tweet view model
 		hashTagTweetViewModel.tweetsProperty().bind(hashTagListViewModel.tweetsProperty());
 
-		// bind tweets property of hash tag list view model 2 statistic charts
+		// bind tweets property of hash tag tweets view model 2 statistic charts
 		// model
 		hashTagTweetViewModel.tweetsProperty().addListener(new ListChangeListener<TweetVM>() {
 			@Override

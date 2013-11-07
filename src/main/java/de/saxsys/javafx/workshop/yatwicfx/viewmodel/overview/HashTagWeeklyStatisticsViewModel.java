@@ -13,11 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-
-import com.google.inject.Inject;
-
-import de.saxsys.javafx.workshop.yatwicfx.model.Tweet;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.model.TweetVM;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.TweetVM;
 import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 
 /**
@@ -39,7 +35,6 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 			FXCollections
 					.observableArrayList(new ArrayList<Series<String, Number>>()));
 
-	@Inject
 	public HashTagWeeklyStatisticsViewModel() {
 
 		// create and write initial series data
@@ -58,18 +53,15 @@ public class HashTagWeeklyStatisticsViewModel implements ViewModel {
 		hashTagStatistics.get().add(series);
 	}
 
+	/**
+	 * The model property for binding with the chart view. 
+	 * 
+	 * @return
+	 */
 	public ObjectProperty<ObservableList<Series<String, Number>>> hashTagStatisticsProperty() {
 		return hashTagStatistics;
 	}
 
-	/**
-	 * 
-	 * <b>Known Encapsulation Problem:</b> The model class {@link Tweet} should
-	 * not be made publicly visible to the view layer to preserve variability of
-	 * the model layer.
-	 * 
-	 * @param addedSubList
-	 */
 	public void loadAddedTweet(List<? extends TweetVM> addedSubList) {
 
 		Series<String, Number> series = hashTagStatistics.getValue().get(0);

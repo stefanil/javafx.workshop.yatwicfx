@@ -20,7 +20,7 @@ import de.saxsys.javafx.workshop.yatwicfx.view.AcceptanceTest;
  * @author stefan.illgen
  * 
  */
-public class HashTagStatisticsChartTest extends AcceptanceTest {
+public class HashTagWeeklyStatisticsViewTest extends AcceptanceTest {
 	
 	/**
 	 * Click on the 1st item of the {@link ListView} for showing {@link HashTag}
@@ -36,15 +36,19 @@ public class HashTagStatisticsChartTest extends AcceptanceTest {
 		Series<String, Number> series = chartSeriesList.get(0);
 		verifyThat(series.getData().size(), is(7));
 		for (int i = 0; i < chartSeriesList.size(); i++) {
-			verifyThat(series.getData().get(i).getYValue(), is((Number)0));		
+			verifyThat(series.getData().get(i).getYValue(), is((Number) 0.0));		
 		}
 		// WHEN
 		click(hashTagListView.getChildrenUnmodifiable().get(0));
 		// THEN
 		series = chartSeriesList.get(0);
-		verifyThat(series.getData().get(1).getYValue(), is((Number)3.0));	
-		verifyThat(series.getData().get(6).getYValue(), is((Number)1.0));	
-		
+		verifyThat(series.getData().get(1).getYValue(), is((Number) Integer.valueOf(3)));	
+		verifyThat(series.getData().get(6).getYValue(), is((Number) Integer.valueOf(1)));	
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

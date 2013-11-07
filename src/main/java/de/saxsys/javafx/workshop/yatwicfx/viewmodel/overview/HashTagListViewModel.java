@@ -17,7 +17,7 @@ import com.google.inject.Inject;
 import de.saxsys.javafx.workshop.yatwicfx.model.HashTag;
 import de.saxsys.javafx.workshop.yatwicfx.model.Repository;
 import de.saxsys.javafx.workshop.yatwicfx.model.Tweet;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.model.TweetVM;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.TweetVM;
 import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 import de.saxsys.jfx.mvvm.base.viewmodel.util.itemlist.ModelToStringMapper;
 import de.saxsys.jfx.mvvm.base.viewmodel.util.itemlist.SelectableItemList;
@@ -110,13 +110,6 @@ public class HashTagListViewModel implements ViewModel {
 		return hashTags.stringListProperty();
 	}
 
-	/**
-	 * <b>Known Encapsulation Problem:</b> The model class {@link Tweet} should
-	 * not be made publicly visible to the view layer to preserve variability of
-	 * the model layer. But its so elegant ;)
-	 * 
-	 * @return
-	 */
 	public ReadOnlyListProperty<TweetVM> tweetsProperty() {
 		return tweets;
 	}
