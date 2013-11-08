@@ -67,7 +67,34 @@ public class ViewModelTestBase {
 			}
 		};
 
-		List<HashTag> hts = new ArrayList<HashTag>() {
+		final List<Tweet> tweets = new ArrayList<Tweet>() {
+			private static final long serialVersionUID = -7035258217375877613L;
+			{
+				add(new Tweet() {
+					{
+						setCreatedAt(new DateTime(1382916379000L));
+						setText("New blog post: Context Menu for Java 8 (Revisited) - http://t.co/ZnEfuYhij3 … #Java8 #JMetro #JavaFX");
+						setUser(users.get(0));
+					}
+				});
+				add(new Tweet() {
+					{
+						setCreatedAt(new DateTime(1482916379000L));
+						setText("Blahhhhh #JMetro");
+						setUser(users.get(1));
+					}
+				});
+				add(new Tweet() {
+					{
+						setCreatedAt(new DateTime(1582916379000L));
+						setText("Blahhhhh #JavaFX");
+						setUser(users.get(2));
+					}
+				});
+			}
+		};
+
+		final List<HashTag> hashtags = new ArrayList<HashTag>() {
 
 			private static final long serialVersionUID = 390400182329029458L;
 
@@ -75,43 +102,30 @@ public class ViewModelTestBase {
 				add(new HashTag() {
 					{
 						setText("Java8");
-						getTweets().add(new Tweet() {
-							{
-								setCreatedAt(new DateTime(1382916379000L));
-								setText("New blog post: Context Menu for Java 8 (Revisited) - http://t.co/ZnEfuYhij3 … #Java8 #JMetro #JavaFX");
-								setUser(users.get(0));
-							}
-						});
+						getTweets().add(tweets.get(0));
 					}
 				});
 				add(new HashTag() {
 					{
 						setText("JMetro");
-						getTweets().add(new Tweet() {
-							{
-								setCreatedAt(new DateTime(1482916379000L));
-								setText("Blahhhhh #JMetro");
-								setUser(users.get(1));
-							}
-						});
+						getTweets().add(tweets.get(1));
 					}
 				});
 				add(new HashTag() {
 					{
 						setText("JavaFX");
-						getTweets().add(new Tweet() {
-							{
-								setCreatedAt(new DateTime(1582916379000L));
-								setText("Blahhhhh #JavaFX");
-								setUser(users.get(2));
-							}
-						});
+						getTweets().add(tweets.get(2));
 					}
 				});
 			}
 		};
-		repo.getHashTags().addAll(hts);
+		
+		users.get(0).getTweets().add(tweets.get(0));
+		users.get(1).getTweets().add(tweets.get(1));
+		users.get(2).getTweets().add(tweets.get(2));
+		repo.getHashTags().addAll(hashtags);
 		repo.getUsers().addAll(users);
+		repo.getTweets().addAll(tweets);
 	}
 
 }

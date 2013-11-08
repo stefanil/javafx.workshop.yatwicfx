@@ -11,14 +11,14 @@ import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagListViewMode
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.HashTagTweetViewModelTest;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.UserVMTest;
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.UserStatisticsViewModelTest;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.UserTweetViewModelTest;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.TweetVMTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ HashTagListViewModelTest.class,
 		HashTagTweetViewModelTest.class, MainContainerViewModelTest.class,
 		HashTagTweetViewTest.class, HashTagWeeklyStatisticsViewTest.class,
 		MainContainerViewModelTest.class, UserVMTest.class,
-		UserStatisticsViewModelTest.class, UserTweetViewModelTest.class})
+		UserStatisticsViewModelTest.class, TweetVMTest.class})
 public class AllTests {
 
 }

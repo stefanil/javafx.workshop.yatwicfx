@@ -19,15 +19,15 @@ import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.UserVM;
  */
 public class UserVMTest extends ViewModelTestBase {
 
-	private UserVM userInfoViewModel;
+	private UserVM userVM;
 
 	@Before
 	public void setUp() {
 		super.setUp();
 
 		// create view model
-		userInfoViewModel = new UserVM(repo);
-		userInfoViewModel.initialize(repo.
+		userVM = new UserVM(repo);
+		userVM.initialize(repo.
 				getHashTags().
 				get(0).
 				getTweets()
@@ -41,8 +41,8 @@ public class UserVMTest extends ViewModelTestBase {
 	 */
 	@Test
 	public void nameTest() {
-		verifyThat(userInfoViewModel.nameProperty(), notNullValue());
-		verifyThat(userInfoViewModel.getName(), is("Pedro Duque Vieira"));
+		verifyThat(userVM.nameProperty(), notNullValue());
+		verifyThat(userVM.getName(), is("Pedro Duque Vieira"));
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class UserVMTest extends ViewModelTestBase {
 	 */
 	@Test
 	public void descriptionTest() {
-		verifyThat(userInfoViewModel.descriptionProperty(), notNullValue());
+		verifyThat(userVM.descriptionProperty(), notNullValue());
 		verifyThat(
-				userInfoViewModel.getDescription(),
+				userVM.getDescription(),
 				is("Freelance Software Engineer who loves front-end/user experience development"));
 	}
 
@@ -61,8 +61,8 @@ public class UserVMTest extends ViewModelTestBase {
 	 */
 	@Test
 	public void followersCountTest() {
-		verifyThat(userInfoViewModel.followersCountProperty(), notNullValue());
-		verifyThat(userInfoViewModel.getFollowersCount(), is(3));
+		verifyThat(userVM.followersCountProperty(), notNullValue());
+		verifyThat(userVM.getFollowersCount(), is(3));
 	}
 
 	/**
@@ -70,8 +70,8 @@ public class UserVMTest extends ViewModelTestBase {
 	 */
 	@Test
 	public void friendsCountTest() {
-		verifyThat(userInfoViewModel.friendsCountProperty(), notNullValue());
-		verifyThat(userInfoViewModel.getFriendsCount(), is(1));
+		verifyThat(userVM.friendsCountProperty(), notNullValue());
+		verifyThat(userVM.getFriendsCount(), is(1));
 	}
 
 }
