@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.beans.property.ReadOnlyListProperty;
 
 import org.joda.time.DateTime;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +31,7 @@ public class HashTagListViewModelTest extends ViewModelTestBase {
 
 	@Before
 	public void setup() {
-		createModel();
+		super.setUp();
 		// create view model
 		htlvm = new HashTagListViewModel(repo);
 		htlvm.selectedHashTagIndexProperty().set(1);
@@ -62,7 +61,7 @@ public class HashTagListViewModelTest extends ViewModelTestBase {
 		htlvm.selectedHashTagIndexProperty().set(0);
 		// VERFICATION
 		ReadOnlyListProperty<TweetVM> tweetsProperty = htlvm.tweetsProperty();
-		verifyThat(tweetsProperty.get(0).getUser(), is("Pedro Duque Vieira"));
+		verifyThat(tweetsProperty.get(0).getUserName(), is("Pedro Duque Vieira"));
 		verifyThat(
 				tweetsProperty.get(0).getText(),
 				is("New blog post: Context Menu for Java 8 (Revisited) - http://t.co/ZnEfuYhij3 … #Java8 #JMetro #JavaFX"));
@@ -79,11 +78,6 @@ public class HashTagListViewModelTest extends ViewModelTestBase {
 	public void selectedHashTagIndexPropertyTest() {
 		// Not possible due to encapsulation restrictions :D
 		verifyThat(true, is(true));
-	}
-
-	@After
-	public void tearDown() {
-		repo = null;
 	}
 
 }

@@ -5,13 +5,9 @@ package de.saxsys.javafx.workshop.yatwicfx.viewmodel.main;
 
 import static org.hamcrest.core.Is.is;
 import static org.loadui.testfx.Assertions.verifyThat;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.XYChart.Series;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +31,7 @@ public class MainContainerViewModelTest extends ViewModelTestBase {
 
 	@Before
 	public void setup() {
-		createModel();
+		super.setUp();
 		// create view model
 		htlvm = new HashTagListViewModel(repo);
 		// ##### initiate selection > mainfest binding (simulate click)
@@ -69,7 +65,7 @@ public class MainContainerViewModelTest extends ViewModelTestBase {
 		// VERIFICATION: Check size, and properties of the tweet
 		int sizeAfter = httvm.tweetsProperty().get().size();
 		verifyThat(sizeAfter, is(sizeBefore + 1));
-		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getUser(),
+		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getUserName(),
 				is("Stefan"));
 		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getCreatedAt(),
 				is(new DateTime(1682916379000L)));
@@ -99,11 +95,6 @@ public class MainContainerViewModelTest extends ViewModelTestBase {
 		verifyThat(htwsvm.hashTagStatisticsProperty().get().get(0).getData()
 				.get(DateTimeConstants.MONDAY - 1).getYValue(),
 				is((Number) Integer.valueOf(2)));
-	}
-
-	@After
-	public void tearDown() {
-		repo = null;
 	}
 	
 	private void addTweet2HashTag() {

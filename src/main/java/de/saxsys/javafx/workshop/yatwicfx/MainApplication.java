@@ -18,10 +18,10 @@ import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
 /**
  * Entry point of the application.
  * 
- * @author sialcasa
+ * @author stefan.illgen
  * 
  */
-public class Starter extends MvvmGuiceApplication {
+public class MainApplication extends MvvmGuiceApplication {
 	
 	@Inject
 	private ViewLoader viewLoader;
@@ -36,7 +36,7 @@ public class Starter extends MvvmGuiceApplication {
 	@Override
 	public void start(final Stage stage) throws Exception {
 		
-		repository.load(true);
+		repository.load(true);		
 		
 		@SuppressWarnings("rawtypes")
 		final ViewTuple tuple = viewLoader

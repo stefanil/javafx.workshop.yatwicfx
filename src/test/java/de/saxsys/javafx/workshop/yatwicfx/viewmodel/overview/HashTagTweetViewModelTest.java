@@ -12,7 +12,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
 
 import org.joda.time.DateTime;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +37,7 @@ public class HashTagTweetViewModelTest extends ViewModelTestBase {
 	@Before
 	public void setup() {
 		
-		createModel();
+		super.setUp();
 
 		// create view model
 		httvm = new HashTagTweetViewModel();
@@ -101,17 +100,12 @@ public class HashTagTweetViewModelTest extends ViewModelTestBase {
 		// VERIFICATION
 		int sizeAfter = httvm.tweetsProperty().get().size();
 		verifyThat(sizeAfter, is(sizeBefore + 1));
-		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getUser(),
+		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getUserName(),
 				is("Stefan"));
 		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getCreatedAt(),
 				is(new DateTime(1682916379000L)));
 		verifyThat(httvm.tweetsProperty().get(sizeAfter - 1).getText(),
 				is("New Blahhhhh #JavaFX"));
-	}
-
-	@After
-	public void tearDown() {
-		repo = null;
 	}
 
 }
