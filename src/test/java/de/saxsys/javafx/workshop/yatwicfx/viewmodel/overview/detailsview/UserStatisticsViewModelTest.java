@@ -26,9 +26,9 @@ public class UserStatisticsViewModelTest extends ViewModelTestBase {
 		// create model
 		super.setUp();
 		// create view model
-		userStatisticsViewModel = new UserStatisticsViewModel(repo);
-		userStatisticsViewModel.initialize(repo.getHashTags().get(0).getTweets().get(0)
-				.getUser().getId());
+		userStatisticsViewModel = new UserStatisticsViewModel();
+//		userStatisticsViewModel.initialize(repo.getHashTags().get(0).getTweets().get(0)
+//				.getUser().getId());
 	}
 	
 	@Test
