@@ -32,9 +32,9 @@ public class TweetsVMTest extends ViewModelTestBase {
 
 	@Test
 	public void tweetTextTest() {
-		verifyThat(tweetsVM.tweetsProperty(), notNullValue());
+		verifyThat(tweetsVM.allTweetsProperty(), notNullValue());
 		verifyThat(
-				tweetsVM.tweetsProperty().get().get(0),
+				tweetsVM.allTweetsProperty().get().get(0),
 				is("New blog post: Context Menu for Java 8 (Revisited) - http://t.co/ZnEfuYhij3 … #Java8 #JMetro #JavaFX"));
 	}
 

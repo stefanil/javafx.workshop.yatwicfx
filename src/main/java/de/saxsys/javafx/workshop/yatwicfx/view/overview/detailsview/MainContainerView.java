@@ -39,6 +39,7 @@ public class MainContainerView extends View<MainContainerViewModel> {
 		userInfoViewController.bindDeferred();
 		userTweetViewController.bindDeferred();
 		userStatisticsViewController.bindDeferred();
+		getViewModel().bindDeferred();
 	}
 
 }

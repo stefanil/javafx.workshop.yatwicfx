@@ -22,7 +22,9 @@ public class UserTweetView extends View<UserTweetViewModel> {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-				
+		
+		
+		
 	}
 	
 	public void bindDeferred() {

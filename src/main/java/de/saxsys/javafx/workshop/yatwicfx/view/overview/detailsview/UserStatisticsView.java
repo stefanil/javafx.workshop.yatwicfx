@@ -25,7 +25,7 @@ public class UserStatisticsView extends View<UserStatisticsViewModel> {
 		// bind deferred
 	}
 
-	public void bindDeferred() {
+	public void bindDeferred() {		
 		userHashTagPieChart.dataProperty().bind(
 				getViewModel().hashTagsProperty());			
 	}

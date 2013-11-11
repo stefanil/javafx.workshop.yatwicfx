@@ -4,10 +4,11 @@
 package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import com.google.inject.Inject;
 
@@ -26,6 +27,7 @@ import de.saxsys.jfx.mvvm.base.viewmodel.util.itemlist.ModelToStringMapper;
 public class UserTweetViewModel implements ViewModel {
 
 	private Repository repository;
+	private ItemList<Tweet> allTweets;
 	private ItemList<Tweet> tweets;
 
 	@Inject
@@ -37,40 +39,41 @@ public class UserTweetViewModel implements ViewModel {
 
 		final User user = repository.getUserById(userId);
 
-		tweets = new ItemList<Tweet>(user.tweetsProperty(),
-				new ModelToStringMapper<Tweet>() {
-					@Override
-					public String toString(Tweet tweet) {
-						return tweet.getText();
-					}
-				});
+		ModelToStringMapper<Tweet> m2sm = new ModelToStringMapper<Tweet>() {
+			@Override
+			public String toString(Tweet tweet) {
+				return tweet.getText();
+			}
+		};
+
+		allTweets = new ItemList<Tweet>(user.tweetsProperty(), m2sm);
+		tweets = new ItemList<Tweet>(user.tweetsProperty(), m2sm);
+	}
+
+	public ReadOnlyListProperty<String> allTweetsProperty() {
+		return allTweets.stringListProperty();
 	}
 
 	public ReadOnlyListProperty<String> tweetsProperty() {
 		return tweets.stringListProperty();
 	}
 
-	ListProperty<Tweet> rawTweetsProperty() {
-		return tweets.itemListProperty();
+	ListProperty<Tweet> rawAllTweetsProperty() {
+		return allTweets.itemListProperty();
 	}
 
 	public void filterTweets(String fHashTag) {
-		List<Tweet> tweets2Remove = new ArrayList<Tweet>();
-		for (Tweet tweet : tweets.itemListProperty()) {
-			// should be removed if there was at least one hashTag with the same
-			// name found
-			boolean rFlag = false;
+		ObservableList<Tweet> tweets2Set = FXCollections
+				.observableList(new ArrayList<Tweet>());
+		for (Tweet tweet : allTweets.itemListProperty()) {
 			for (HashTag hashTag : tweet.getHashTags()) {
-				rFlag = rFlag || !(hashTag.getText().compareTo(fHashTag) == 0);
-
+				if (hashTag.getText().compareTo(fHashTag) == 0) {
+					tweets2Set.add(tweet);
+					break;
+				}
 			}
-			if (rFlag)
-				tweets2Remove.add(tweet);
 		}
-		
-		for (Tweet tweet : tweets2Remove) {
-			tweets.itemListProperty().remove(tweet);
-		}
+		tweets.itemListProperty().set(tweets2Set);
 	}
 
 }

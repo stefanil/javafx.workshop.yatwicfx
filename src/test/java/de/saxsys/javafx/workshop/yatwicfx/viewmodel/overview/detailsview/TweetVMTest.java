@@ -32,7 +32,7 @@ public class TweetVMTest extends ViewModelTestBase {
 
 	@Test
 	public void tweetTextTest() {
-		verifyThat(tweetVM.tweetsProperty(), notNullValue());
+		verifyThat(tweetVM.allTweetsProperty(), notNullValue());
 	}
 
 }
