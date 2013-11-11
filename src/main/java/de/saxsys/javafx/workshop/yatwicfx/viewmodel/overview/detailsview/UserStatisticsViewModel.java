@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview;
+package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,5 @@ public class UserStatisticsViewModel implements ViewModel {
 	public ObjectProperty<ObservableList<Data>> hashTagsProperty() {
 		return hashtags;
 	}
-	
-	
 
 }

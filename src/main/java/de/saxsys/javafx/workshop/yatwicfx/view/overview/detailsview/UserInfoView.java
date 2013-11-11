@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.StringBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.UserVM;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.UserVM;
 import de.saxsys.jfx.mvvm.base.view.View;
 
 /**

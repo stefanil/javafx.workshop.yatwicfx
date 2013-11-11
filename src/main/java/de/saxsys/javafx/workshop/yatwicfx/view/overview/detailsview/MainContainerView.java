@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.MainContainerViewModel;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.MainContainerViewModel;
 import de.saxsys.jfx.mvvm.base.view.View;
 
 /**

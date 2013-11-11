@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview;
+package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;

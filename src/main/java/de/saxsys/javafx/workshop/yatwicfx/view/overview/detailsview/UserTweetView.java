@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.UserTweetViewModel;
+import de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview.UserTweetViewModel;
 import de.saxsys.jfx.mvvm.base.view.View;
 
 /**

@@ -6,8 +6,6 @@ package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview;
 import org.junit.Before;
 
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.ViewModelTestBase;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.MainContainerViewModel;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.UserVM;
 
 /**
  * @author stefan.illgen

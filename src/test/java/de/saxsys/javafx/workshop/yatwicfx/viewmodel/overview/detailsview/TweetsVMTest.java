@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.saxsys.javafx.workshop.yatwicfx.viewmodel.ViewModelTestBase;
-import de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview.UserTweetViewModel;
 
 /**
  * @author stefan.illgen

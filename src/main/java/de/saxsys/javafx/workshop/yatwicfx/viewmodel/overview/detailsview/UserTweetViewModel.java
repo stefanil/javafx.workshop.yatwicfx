@@ -1,16 +1,13 @@
 /**
  * 
  */
-package de.saxsys.javafx.workshop.yatwicfx.viewmodel.detailsview;
+package de.saxsys.javafx.workshop.yatwicfx.viewmodel.overview.detailsview;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import javafx.beans.binding.ListBinding;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import com.google.inject.Inject;
 
@@ -30,8 +27,6 @@ public class UserTweetViewModel implements ViewModel {
 
 	private Repository repository;
 	private ItemList<Tweet> tweets;
-//	private ListProperty<HashTag> hashTags = new SimpleListProperty<HashTag>(
-//			FXCollections.observableList(new ArrayList<HashTag>()));
 
 	@Inject
 	public UserTweetViewModel(Repository repository) {
@@ -39,7 +34,7 @@ public class UserTweetViewModel implements ViewModel {
 	}
 
 	public void initialize(String userId) {
-		
+
 		final User user = repository.getUserById(userId);
 
 		tweets = new ItemList<Tweet>(user.tweetsProperty(),
@@ -49,47 +44,33 @@ public class UserTweetViewModel implements ViewModel {
 						return tweet.getText();
 					}
 				});
-
-//		ListBinding<HashTag> lb = new ListBinding<HashTag>() {
-//			{
-//				super.bind(tweets.itemListProperty());
-//			}
-//
-//			@Override
-//			protected ObservableList<HashTag> computeValue() {
-//
-//				ObservableList<HashTag> result = FXCollections
-//						.observableArrayList(new ArrayList<HashTag>());
-//
-//				ListProperty<Tweet> rawTweets = tweets.itemListProperty();
-//
-//				for (Tweet rawTweet : rawTweets) {
-//					result.addAll(rawTweet.getHashTags());
-//				}
-//
-//				return result;
-//			}
-//		};
-//
-//		hashTags.bind(lb);
 	}
 
 	public ReadOnlyListProperty<String> tweetsProperty() {
 		return tweets.stringListProperty();
 	}
 
-	 ListProperty<Tweet> rawTweetsProperty() {
-	 return tweets.itemListProperty();
-	 }
+	ListProperty<Tweet> rawTweetsProperty() {
+		return tweets.itemListProperty();
+	}
 
-//	/**
-//	 * Represents a list of all {@link HashTag}s ever user by a User (contains
-//	 * duplicates).
-//	 * 
-//	 * @return
-//	 */
-//	public ListProperty<HashTag> hashTagsProperty() {
-//		return hashTags;
-//	}
+	public void filterTweets(String fHashTag) {
+		List<Tweet> tweets2Remove = new ArrayList<Tweet>();
+		for (Tweet tweet : tweets.itemListProperty()) {
+			// should be removed if there was at least one hashTag with the same
+			// name found
+			boolean rFlag = false;
+			for (HashTag hashTag : tweet.getHashTags()) {
+				rFlag = rFlag || !(hashTag.getText().compareTo(fHashTag) == 0);
+
+			}
+			if (rFlag)
+				tweets2Remove.add(tweet);
+		}
+		
+		for (Tweet tweet : tweets2Remove) {
+			tweets.itemListProperty().remove(tweet);
+		}
+	}
 
 }
